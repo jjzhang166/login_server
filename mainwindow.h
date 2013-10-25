@@ -5,6 +5,7 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QHostInfo>
+#include <QNetworkInterface>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QVariant>
