@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->tcpServer = NULL;
     this->tcpSocket = NULL;
+    this->udpsocket = NULL;
     this->ui->label_IP->setText(this->GetLocalIPAddress());
     this->initConnect();
 }
@@ -34,7 +35,9 @@ void MainWindow::initConnect()
 {
     connect(this->ui->spinBox,SIGNAL(valueChanged(int)),this,SLOT(setPort(int)));
     connect(this->ui->pushButton_Start,SIGNAL(clicked()),this,SLOT(startTcpServer()));
+    connect(this->ui->pushButton_Start,SIGNAL(clicked()),this,SLOT(startUdpServer()));
     connect(this->ui->pushButton_Close,SIGNAL(clicked()),this,SLOT(closeTcpServer()));
+    connect(this->ui->pushButton_Close,SIGNAL(clicked()),this,SLOT(closeUdpServer()));
 }
 
 /**
@@ -58,6 +61,16 @@ void MainWindow::startTcpServer()
 }
 
 /**
+ * @brief MainWindow::startUdpServer 开启服务器
+ */
+void MainWindow::startUdpServer()
+{
+    this->udpsocket = new QUdpSocket(this);
+    this->udpsocket->bind(7777,QUdpSocket::ShareAddress|QUdpSocket::ReuseAddressHint);
+    connect(this->udpsocket,SIGNAL(readyRead()),this,SLOT(processPendingDatagrams()));
+}
+
+/**
  * @brief MainWindow::closeTcpServer 关闭服务器
  */
 void MainWindow::closeTcpServer()
@@ -67,6 +80,18 @@ void MainWindow::closeTcpServer()
     }
     if(this->tcpServer != NULL) {
         this->tcpServer->close();
+    }
+
+    this->ui->label_SS->setText("Stop.");
+}
+
+/**
+ * @brief MainWindow::closeUdpServer 关闭服务器
+ */
+void MainWindow::closeUdpServer()
+{
+    if(this->udpsocket != NULL) {
+        this->udpsocket->close();
     }
 
     this->ui->label_SS->setText("Stop.");
@@ -118,7 +143,7 @@ bool MainWindow::verify(QString msg)
 }
 
 /**
- * @brief MainWindow::readMessages 读取发送来的数据
+ * @brief MainWindow::readMessages 读取tcpsocket发送来的数据
  */
 void MainWindow::readMessages()
 {
@@ -131,6 +156,28 @@ void MainWindow::readMessages()
         msg = "false";
     }
     this->sendMessages(msg);
+}
+
+/**
+ * @brief MainWindow::processPendingDatagrams 读取udpsocket发送来的数据
+ */
+void MainWindow::processPendingDatagrams()
+{
+    while (udpsocket->hasPendingDatagrams()) {
+        QByteArray datagram;
+        datagram.resize(udpsocket->pendingDatagramSize());
+        QDataStream in(&datagram,QIODevice::ReadOnly);
+        Type type;
+        in>>type;
+        switch (type) {
+        case Message:
+            break;
+        case Join:
+            break;
+        case Leave:
+            break;
+        }
+    }
 }
 
 /**

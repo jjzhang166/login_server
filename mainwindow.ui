@@ -294,8 +294,10 @@ color: rgb(0, 0, 255);</string>
     </property>
     <property name="font">
      <font>
-      <family>Sans Serif</family>
+      <family>微软雅黑</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -313,8 +315,10 @@ color: rgb(0, 0, 255);</string>
     </property>
     <property name="font">
      <font>
-      <family>Sans Serif</family>
+      <family>微软雅黑</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -332,8 +336,10 @@ color: rgb(0, 0, 255);</string>
     </property>
     <property name="font">
      <font>
-      <family>Sans Serif</family>
+      <family>微软雅黑</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -351,8 +357,10 @@ color: rgb(0, 0, 255);</string>
     </property>
     <property name="font">
      <font>
-      <family>Sans Serif</family>
+      <family>微软雅黑</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -370,8 +378,10 @@ color: rgb(0, 0, 255);</string>
     </property>
     <property name="font">
      <font>
-      <family>Sans Serif</family>
+      <family>微软雅黑</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
