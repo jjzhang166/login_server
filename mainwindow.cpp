@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->udpsocket = NULL;
     this->ui->label_IP->setText(this->GetLocalIPAddress());
     this->initConnect();
+    this->initDatabase();
 }
 
 MainWindow::~MainWindow()
@@ -28,7 +29,7 @@ MainWindow::~MainWindow()
 }
 
 /**
- * @brief MainWindow::initConnect
+ * @brief MainWindow::initConnect初始化链接
  * @caption 初始化QObject::connect()函数
  */
 void MainWindow::initConnect()
@@ -38,6 +39,23 @@ void MainWindow::initConnect()
     connect(this->ui->pushButton_Start,SIGNAL(clicked()),this,SLOT(startUdpServer()));
     connect(this->ui->pushButton_Close,SIGNAL(clicked()),this,SLOT(closeTcpServer()));
     connect(this->ui->pushButton_Close,SIGNAL(clicked()),this,SLOT(closeUdpServer()));
+}
+
+/**
+ * @brief MainWindow::initDatabase初始化数据库
+ */
+void MainWindow::initDatabase()
+{
+    //数据库连接
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("mytest.db");
+    if(!db.open()){
+        QMessageBox::information(this, "信息提示", "数据库连接失败.",
+                                 QMessageBox::Yes | QMessageBox::No,
+                                 QMessageBox::Yes);
+        db.close();
+        exit(EXIT_FAILURE);
+    }
 }
 
 /**
@@ -113,16 +131,6 @@ void MainWindow::newConnect()
  */
 bool MainWindow::verify(QString msg)
 {
-    //数据库连接
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("mytest.db");
-    if(!db.open()){
-        QMessageBox::information(this, "信息提示", "数据库连接失败.",
-                                 QMessageBox::Yes | QMessageBox::No,
-                                 QMessageBox::Yes);
-        db.close();
-        exit(EXIT_FAILURE);
-    }
     QSqlQuery query;//获取数据库信息
     query.exec("select * from account");
 
@@ -211,7 +219,6 @@ QString MainWindow::GetLocalIPAddress()
             break;
         }
     }
-
     return vAddress;
 }
 

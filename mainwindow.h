@@ -44,6 +44,7 @@ private slots:
 
 private:
     void initConnect();
+    void initDatabase();
     void sendMessages(QString msg);
     QString GetLocalIPAddress();
     bool verify(QString msg);
