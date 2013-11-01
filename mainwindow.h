@@ -32,6 +32,7 @@ private:
     QTcpServer *tcpServer;
     QTcpSocket *tcpSocket;
     QUdpSocket *udpsocket;
+    QSqlDatabase db;
 private slots:
     void setPort(int port);
     void startTcpServer();

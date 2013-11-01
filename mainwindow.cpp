@@ -47,7 +47,7 @@ void MainWindow::initConnect()
 void MainWindow::initDatabase()
 {
     //数据库连接
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("mytest.db");
     if(!db.open()){
         QMessageBox::information(this, "信息提示", "数据库连接失败.",
@@ -174,8 +174,9 @@ void MainWindow::processPendingDatagrams()
     while (udpsocket->hasPendingDatagrams()) {
         QByteArray datagram;
         datagram.resize(udpsocket->pendingDatagramSize());
+        udpsocket->readDatagram(datagram.data(),datagram.size());
         QDataStream in(&datagram,QIODevice::ReadOnly);
-        Type type;
+        int type;
         in>>type;
         switch (type) {
         case Message:
