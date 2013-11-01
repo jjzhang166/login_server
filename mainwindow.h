@@ -10,6 +10,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QVariant>
+#include <QTimer>
 #include <QDataStream>
 #include <QMessageBox>
 #include <QCryptographicHash>
@@ -48,7 +49,8 @@ private:
     void initDatabase();
     void sendMessages(QString msg);
     QString GetLocalIPAddress();
-    bool verify(QString msg);
+    int verify(QString msg);
+    int signup_check(QDataStream &in);
 };
 
 #endif // MAINWINDOW_H

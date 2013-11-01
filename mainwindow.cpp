@@ -129,7 +129,7 @@ void MainWindow::newConnect()
  * @param msg 欲验证的加密报文
  * @return 验证成功，返回true；否则，返回false。
  */
-bool MainWindow::verify(QString msg)
+int MainWindow::verify(QString msg)
 {
     QSqlQuery query;//获取数据库信息
     query.exec("select * from account");
@@ -166,6 +166,24 @@ void MainWindow::readMessages()
     this->sendMessages(msg);
 }
 
+int MainWindow::signup_check(QDataStream &in)
+{
+    QString username;
+    QString passwd;
+    in>>username;
+    in>>passwd;
+    QSqlQuery query;
+    query.exec("select * from account");
+    while(query.next())
+    {
+        if(query.value(0).toString()==username)
+            return 0;
+    }
+    //注册（待完成）
+    query.exec("")
+    return 1;
+}
+
 /**
  * @brief MainWindow::processPendingDatagrams 读取udpsocket发送来的数据
  */
@@ -179,6 +197,9 @@ void MainWindow::processPendingDatagrams()
         int type;
         in>>type;
         switch (type) {
+        case Signup:
+            signup_check(&in);
+            break;
         case Message:
             break;
         case Join:

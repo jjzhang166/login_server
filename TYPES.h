@@ -3,4 +3,4 @@
 
 #endif // TYPES_H
 
-enum Type{Message,Join,Leave};
+enum Type{Signup,SignupRes,Message,Join,Leave};
