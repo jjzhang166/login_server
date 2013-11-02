@@ -48,9 +48,10 @@ private:
     void initConnect();
     void initDatabase();
     void sendMessages(QString msg);
+    void Send_signRes(QString str,QString username);
     QString GetLocalIPAddress();
     int verify(QString msg);
-    int signup_check(QDataStream &in);
+    int signup_check(QString username,QDataStream &in);
 };
 
 #endif // MAINWINDOW_H

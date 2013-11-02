@@ -166,11 +166,11 @@ void MainWindow::readMessages()
     this->sendMessages(msg);
 }
 
-int MainWindow::signup_check(QDataStream &in)
+int MainWindow::signup_check(QString username,QDataStream &in)
 {
-    QString username;
+    //QString username;
     QString passwd;
-    in>>username;
+    //in>>username;
     in>>passwd;
     QSqlQuery query;
     query.exec("select * from account");
@@ -180,7 +180,13 @@ int MainWindow::signup_check(QDataStream &in)
             return 0;
     }
     //注册（待完成）
-    query.exec("")
+    QString tmp= "insert into account values(";
+    tmp+="'";
+    tmp+=username;
+    tmp+="','";
+    tmp+=passwd;
+    tmp+="')";
+    query.exec(tmp);
     return 1;
 }
 
@@ -196,9 +202,14 @@ void MainWindow::processPendingDatagrams()
         QDataStream in(&datagram,QIODevice::ReadOnly);
         int type;
         in>>type;
+        QString username;
         switch (type) {
         case Signup:
-            signup_check(&in);
+            in>>username;
+            if(signup_check(username,in))
+                Send_signRes(username,"OK");
+            else
+                Send_signRes(username,"NO");
             break;
         case Message:
             break;
@@ -210,6 +221,15 @@ void MainWindow::processPendingDatagrams()
     }
 }
 
+void MainWindow::Send_signRes(QString username,QString str)
+{
+    QByteArray data;
+    QDataStream out(&data,QIODevice::WriteOnly);
+    out<<SignupRes;
+    out<<username;
+    out<<str;
+    udpsocket->writeDatagram(data,data.length(),QHostAddress::Broadcast,7777);
+}
 /**
  * @brief MainWindow::sendMessages 发送回复消息，以说明登录验证是否成功。
  *      如果回复"true"，表示验证成功；否则，回复为"false",表示验证失败。
