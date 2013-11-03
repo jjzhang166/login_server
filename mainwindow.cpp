@@ -56,6 +56,10 @@ void MainWindow::initDatabase()
         db.close();
         exit(EXIT_FAILURE);
     }
+
+    QSqlQuery query;
+    query.exec("CREATE TABLE account(name varchar,password varchar)");
+    query.exec("CREATE TABLE State_table(name varchar,state bool)");
 }
 
 /**
@@ -188,6 +192,11 @@ int MainWindow::signup_check(QString username,QDataStream &in)
     tmp+="','";
     tmp+=passwd;
     tmp+="')";
+    query.exec(tmp);
+
+    tmp="CREATE TABLE ";
+    tmp+=username+"_friend";
+    tmp+="(name varchar)";
     query.exec(tmp);
     return 1;
 }
