@@ -10,7 +10,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QVariant>
-#include <QTimer>
+#include <QDateTime>
 #include <QDataStream>
 #include <QMessageBox>
 #include <QCryptographicHash>
@@ -51,6 +51,7 @@ private:
     void Send_signRes(QString str,QString username);
     QString GetLocalIPAddress();
     int verify(QString msg);
+    void add2online(QDataStream&);
     int signup_check(QString username,QDataStream &in);
 };
 

@@ -307,7 +307,7 @@ color: rgb(0, 0, 255);</string>
    <widget class="QLabel" name="label_uip">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>130</x>
       <y>201</y>
       <width>16</width>
       <height>19</height>
@@ -328,7 +328,7 @@ color: rgb(0, 0, 255);</string>
    <widget class="QLabel" name="label_ult">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>250</x>
       <y>201</y>
       <width>64</width>
       <height>19</height>
@@ -346,48 +346,6 @@ color: rgb(0, 0, 255);</string>
      <string>上线时间</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_ullt">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>201</y>
-      <width>96</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>微软雅黑</family>
-      <pointsize>9</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>上次上线时间</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_ulip">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>201</y>
-      <width>79</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>微软雅黑</family>
-      <pointsize>9</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>上次上线IP</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_usernum">
     <property name="geometry">
      <rect>
@@ -399,12 +357,14 @@ color: rgb(0, 0, 255);</string>
     </property>
     <property name="font">
      <font>
-      <family>Sans Serif</family>
+      <family>微软雅黑</family>
       <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string/>
+     <string>0</string>
     </property>
    </widget>
   </widget>

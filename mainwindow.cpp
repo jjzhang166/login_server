@@ -101,6 +101,8 @@ void MainWindow::closeTcpServer()
     }
 
     this->ui->label_SS->setText("Stop.");
+    this->ui->label_usernum->setText("0");
+    this->ui->textBrowser->clear();
 }
 
 /**
@@ -179,7 +181,7 @@ int MainWindow::signup_check(QString username,QDataStream &in)
         if(query.value(0).toString()==username)
             return 0;
     }
-    //注册（待完成）
+    //注册（完成）
     QString tmp= "insert into account values(";
     tmp+="'";
     tmp+=username;
@@ -214,6 +216,7 @@ void MainWindow::processPendingDatagrams()
         case Message:
             break;
         case Join:
+            add2online(in);
             break;
         case Leave:
             break;
@@ -238,6 +241,35 @@ void MainWindow::sendMessages(QString msg)
 {
     this->tcpSocket->write(msg.toStdString().c_str(),
                            strlen(msg.toStdString().c_str()));
+}
+
+void MainWindow::add2online(QDataStream &in)
+{
+    QString username;
+    in>>username;
+    QString ip;
+    ip=this->tcpSocket->peerAddress().toString();
+
+    QDateTime datetime;
+
+    QString time;
+    time=datetime.currentDateTime().toString();
+
+    QSqlQuery query;
+
+    QString tmp= "insert into ip values(";
+    tmp+="'";
+    tmp+=username;
+    tmp+="','";
+    tmp+=ip;
+    tmp+="','";
+    tmp+=time;
+    tmp+="')";
+    query.exec(tmp);
+
+    int num=this->ui->label_usernum->text().toInt()+1;
+    this->ui->label_usernum->setText(QString::number(num,10));
+    this->ui->textBrowser->append(username+"\t"+ip+"\t"+time);
 }
 
 /**
