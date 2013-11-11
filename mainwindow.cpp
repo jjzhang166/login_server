@@ -57,7 +57,7 @@ void MainWindow::initDatabase()
         exit(EXIT_FAILURE);
     }
 
-    QSqlQuery query;
+    QSqlQuery query(db);
     query.exec("CREATE TABLE account(name varchar,password varchar)");
     query.exec("CREATE TABLE State_table(name varchar,state bool)");
 }
@@ -137,7 +137,7 @@ void MainWindow::newConnect()
  */
 int MainWindow::verify(QString msg)
 {
-    QSqlQuery query;//获取数据库信息
+    QSqlQuery query(db);//获取数据库信息
     query.exec("select * from account");
 
     //服务器端的数据同样采取加密操作，比较的是加密后的密文是否相同
